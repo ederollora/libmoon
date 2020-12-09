@@ -38,9 +38,9 @@ i=0
 for id in $(usertools/dpdk-devbind.py --status | grep -v Active | grep -v ConnectX | grep unused=igb_uio | cut -f 1 -d " ")
 do
   trim_id=$(echo $id | cut -d':' -f2-)
-  desc=$(lspi | grep -i $trim_id)
+  desc=$(lspci | grep -i $trim_id)
 
-  if [-z "$desc"]; then
+  if [ -z "$desc" ]; then
     continue
   fi
 
