@@ -38,21 +38,21 @@ i=0
 for id in $(usertools/dpdk-devbind.py --status | grep -v Active | grep -v ConnectX | grep unused=igb_uio | cut -f 1 -d " ")
 do
   trim_id=´echo $id | | cut -d':' -f2-´
-	desc=´lspi | grep -i $trim_id | echo´
+  desc=´lspi | grep -i $trim_id | echo´
 
   if [-z "$desc"]; then
     continue
   fi
 
-	echo -n "Would you like to bind the current interface (y/n)?\n"
+  echo -n "Would you like to bind the current interface (y/n)?\n"
   echo -n "Description: $desc"
-	read answer
+  read answer
 
-	if [ "$answer" != "${answer#[Yy]}" ] ;then
+  if [ "$answer" != "${answer#[Yy]}" ] ;then
     echo "Binding interface $id to DPDK"
     usertools/dpdk-devbind.py  --bind=igb_uio $id
     i=$(($i+1))
-	fi
+  fi
 
 done
 
